@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
@@ -34,7 +37,8 @@ public class PersonListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_list);
         ButterKnife.bind(this);
-        setTitle("查詢列表");
+        setTitle("数据列表");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         List<Person> persons = queryAll();
         mAdapter = new PersonAdapter(this);
@@ -106,6 +110,34 @@ public class PersonListActivity extends AppCompatActivity {
         persons = persons.sort("id");
 
         return mRealm.copyFromRealm(persons);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+        } else if (item.getItemId() == R.id.tabDelete) {
+            Realm  mRealm = Realm.getDefaultInstance();
+            final RealmResults<Person> persons = mRealm.where(Person.class).findAll();
+            mRealm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    //删除所有数据
+                    persons.deleteAllFromRealm();
+                    mAdapter.clear();
+                }
+            });
+
+        } else if (item.getItemId() == R.id.tabShare) {
+            Toast.makeText(this, "分享", Toast.LENGTH_SHORT).show();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

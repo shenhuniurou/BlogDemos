@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/tabDelete"
+        android:icon="@android:drawable/ic_menu_delete"
+        android:title="一键清空"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/tabShare"
+        android:icon="@android:drawable/ic_menu_share"
+        android:title="分享"
+        app:showAsAction="ifRoom" />
+
+
+</menu>

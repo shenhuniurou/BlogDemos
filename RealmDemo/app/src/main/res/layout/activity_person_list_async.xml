@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_person_list"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.xx.realm.activity.PersonListActivity">
+
+    <com.jude.easyrecyclerview.EasyRecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_empty="@layout/view_empty"
+        app:layout_error="@layout/view_error"
+        app:layout_progress="@layout/view_progress"
+        app:recyclerClipToPadding="true"
+        app:scrollbarStyle="insideInset"
+        app:scrollbars="vertical" />
+
+</RelativeLayout>

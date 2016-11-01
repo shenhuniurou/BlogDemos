@@ -7,45 +7,70 @@
     android:orientation="vertical"
     tools:context="com.xx.realm.activity.MainActivity">
 
-    <TextView
-        android:id="@+id/tvAdd"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:background="@android:color/holo_purple"
-        android:gravity="center"
-        android:padding="20dp"
-        android:text="增" />
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/tvDelete"
+        <TextView
+            android:id="@+id/tvAdd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="增"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/tvAsyncAdd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="异步增"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:background="@android:color/holo_purple"
-        android:gravity="center"
-        android:padding="20dp"
-        android:text="删" />
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/tvUpdate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:background="@android:color/holo_purple"
-        android:gravity="center"
-        android:padding="20dp"
-        android:text="改" />
+        <TextView
+            android:id="@+id/tvSelectUpdateDelete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="删、改、查"
+            android:textColor="@android:color/white" />
 
-    <TextView
-        android:id="@+id/tvQuery"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:background="@android:color/holo_purple"
-        android:gravity="center"
-        android:padding="20dp"
-        android:text="查" />
+        <TextView
+            android:id="@+id/tvAsynctvSelectUpdateDelete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="异步删、改、查"
+            android:textColor="@android:color/white" />
 
+    </LinearLayout>
 
 </LinearLayout>
