@@ -1,69 +1,81 @@
 package com.xx.matrix;
 
+import android.graphics.Matrix;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
-import com.xx.matrix.view.ZoomImageView;
+import com.xx.matrix.view.MatrixImageView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnTouchListener {
 
-    private ViewPager viewpager;
-    private int[] mImgs = new int[]{R.mipmap.p1, R.mipmap.p2, R.mipmap.p3, R.mipmap.p4, R.mipmap.p5};
-    private ImageView[] mImageViews = new ImageView[mImgs.length];
+    private MatrixImageView mMatrixImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        mMatrixImageView = new MatrixImageView(this);
+        mMatrixImageView.setScaleType(ImageView.ScaleType.MATRIX);
+        mMatrixImageView.setOnTouchListener(this);
 
-        viewpager = (ViewPager) findViewById(R.id.viewpager);
-        viewpager.setAdapter(new PagerAdapter() {
+        setContentView(mMatrixImageView);
+    }
 
-            @Override
-            public void destroyItem(ViewGroup container, int position, Object object) {
-                container.removeView(mImageViews[position]);
-            }
+    @Override
+    public boolean onTouch(View view, MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_UP:
+                Matrix matrix = new Matrix();
+                //平移 沿x轴移动图片的宽度距离，沿y轴移动图片的高度距离
+//                matrix.postTranslate(mMatrixImageView.getImageBitmap().getWidth(), mMatrixImageView.getImageBitmap().getHeight());
+//                mMatrixImageView.setImageMatrix(matrix);
 
-            @Override
-            public Object instantiateItem(ViewGroup container, int position) {
-                ZoomImageView imageView = new ZoomImageView(getApplicationContext());
-                imageView.setImageResource(mImgs[position]);
-                container.addView(imageView);
-                mImageViews[position] = imageView;
-                return imageView;
-            }
+                //缩放 以图片中心点缩小一倍
+//                matrix.postScale(0.5f, 0.5f,
+//                        mMatrixImageView.getImageBitmap().getWidth() / 2,
+//                        mMatrixImageView.getImageBitmap().getHeight() / 2);
+//                mMatrixImageView.setImageMatrix(matrix);
 
-            @Override
-            public int getCount() {
-                return mImageViews.length;
-            }
+                //旋转 绕图片右下角的点旋转180度
+//                matrix.postRotate(180,
+//                        mMatrixImageView.getImageBitmap().getWidth(),
+//                        mMatrixImageView.getImageBitmap().getHeight());
+//                mMatrixImageView.setImageMatrix(matrix);
 
-            @Override
-            public boolean isViewFromObject(View view, Object object) {
-                return view == object;
-            }
-        });
+                // 错切
+//                matrix.postSkew(0, 1);//垂直错切
+//                matrix.postSkew(1, 0);//水平错切
+//                matrix.postSkew(1, 2);//复合错切
+//                mMatrixImageView.setImageMatrix(matrix);
+
+                float[] src = {
+                        0, 0,                                              // 左上
+                        mMatrixImageView.getImageBitmap().getWidth(), 0, // 右上
+                        mMatrixImageView.getImageBitmap().getWidth(), mMatrixImageView.getImageBitmap().getHeight(),        // 右下
+                        0, mMatrixImageView.getImageBitmap().getHeight()};                        // 左下
+
+                float[] dst = {
+                        88, 88,                                    // 左上
+                        mMatrixImageView.getImageBitmap().getWidth(), 255,                        // 右上
+                        mMatrixImageView.getImageBitmap().getWidth(), mMatrixImageView.getImageBitmap().getHeight() - 256,  // 右下
+                        0, mMatrixImageView.getImageBitmap().getHeight()};                        // 左下
+
+                matrix.setPolyToPoly(src, 0, dst, 0, 4);
+                mMatrixImageView.setImageMatrix(matrix);
+                break;
+
+        }
+        mMatrixImageView.invalidate();
+        return true;
     }
 
     @Override
