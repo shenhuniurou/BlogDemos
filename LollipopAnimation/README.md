@@ -1,5 +1,5 @@
 ## Android全新的动画
-[博客地址](http://shenhuniurou.com/2016/11/05/android-material-animations)
+[博客地址](http://shenhuniurou.com/2016/11/10/android-material-animations)
 
 [文档地址](https://developer.android.com/training/material/animations.html#Reveal)
 

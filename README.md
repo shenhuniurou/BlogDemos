@@ -1,3 +1,17 @@
 # BlogDemos
 博客中演示的demo
 
+
+[Realm在Android项目中的使用](http://shenhuniurou.com/2016/11/02/realm-for-android)
+
+
+-----------------------------------------------
+
+[Matrix的原理及使用方法](http://shenhuniurou.com/2016/11/05/matrix-principle-and-intructions)
+
+
+------------------------------------------------
+
+
+[Materail Design中全新的动画](http://shenhuniurou.com/2016/11/10/android-materail-animations)
+
