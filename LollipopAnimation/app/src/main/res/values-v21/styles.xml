@@ -1,0 +1,24 @@
+<resources>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:colorControlHighlight">@android:color/darker_gray</item>
+
+        <!-- 允许使用transitions -->
+        <item name="android:windowContentTransitions">true</item>
+        <!-- 指定进入、退出、返回、重新进入时的transitions -->
+        <!--<item name="android:windowEnterTransition">@android:transition/move</item>-->
+        <!--<item name="android:windowExitTransition">@android:transition/move</item>-->
+        <!--<item name="android:windowReturnTransition">@android:transition/move</item>-->
+        <!--<item name="android:windowReenterTransition">@android:transition/move</item>-->
+        <!-- 指定进入、退出、返回、重新进入时的共享transitions -->
+        <!--<item name="android:windowSharedElementEnterTransition">@transition/change_image_transform</item>-->
+        <!--<item name="android:windowSharedElementExitTransition">@transition/change_image_transform</item>-->
+        <!--<item name="android:windowSharedElementReturnTransition">@transition/change_image_transform</item>-->
+        <!--<item name="android:windowSharedElementReenterTransition">@transition/change_image_transform</item>-->
+
+    </style>
+</resources>

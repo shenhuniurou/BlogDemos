@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/content_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.xx.lollipopanimation.MainActivity">
+
+    <ImageView
+        android:id="@+id/ivAvatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_gravity="center"
+        android:src="@drawable/aaa"/>
+
+    <ImageView
+        android:id="@+id/iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:srcCompat="@drawable/anim_vector_drawable"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/tv11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@android:color/darker_gray"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:padding="15dp"
+        android:gravity="center"
+        android:text="测试视图状态变化"/>
+
+    <!--<TextView
+        android:id="@+id/tv10"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_margin="50dp"
+        android:background="@android:color/darker_gray"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:padding="15dp"
+        android:transitionName="textview"
+        android:gravity="center"
+        android:text="点我跳转"/>-->
+
+    <!--<TextView
+        android:id="@+id/tv9"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_margin="50dp"
+        android:background="@android:color/holo_blue_bright"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:padding="15dp"
+        android:gravity="center"
+        android:text="点我隐藏"/>-->
+
+    <!--<TextView
+        android:id="@+id/tv1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:padding="15dp"
+        android:gravity="center"
+        android:text="前景背景都有边界"/>
+
+    <TextView
+        android:id="@+id/tv2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+        android:padding="15dp"
+        android:gravity="center"
+        android:text="前景背景都无边界"/>
+
+    <TextView
+        android:id="@+id/tv3"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:padding="15dp"
+        android:gravity="center"
+        android:text="前景有边界，背景无边界"/>
+
+    <TextView
+        android:id="@+id/tv4"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+        android:padding="15dp"
+        android:gravity="center"
+        android:text="前景无边界，背景有边界"/>
+
+    <TextView
+        android:id="@+id/tv5"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+        android:padding="15dp"
+        android:gravity="center"
+        android:text="前景无边界"/>
+
+    <TextView
+        android:id="@+id/tv6"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:padding="15dp"
+        android:gravity="center"
+        android:text="前景有边界"/>
+
+    <TextView
+        android:id="@+id/tv7"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:padding="15dp"
+        android:gravity="center"
+        android:text="背景有边界"/>
+
+    <TextView
+        android:id="@+id/tv8"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:padding="15dp"
+        android:gravity="center"
+        android:text="背景无边界"/>-->
+</LinearLayout>
