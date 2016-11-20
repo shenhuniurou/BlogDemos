@@ -15,3 +15,10 @@
 
 [Materail Design中全新的动画](http://shenhuniurou.com/2016/11/10/android-materail-animations)
 
+
+
+--------------------------------------------------
+
+
+[EventBus的基本使用和源码解析](http://shenhuniurou.com/2016/11/06/android-event-bus-source-parsing)
+
