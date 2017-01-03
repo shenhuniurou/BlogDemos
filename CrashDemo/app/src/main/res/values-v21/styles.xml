@@ -1,0 +1,25 @@
+<resources>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="MyAlertDialogStyle2"
+        parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:background">@drawable/dialog_bg</item>
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
+        <item name="android:colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="Base.Theme.Patch"
+        parent="android:Theme.Material.Light.DarkActionBar"/>
+
+    <style name="Theme.Patch.NoTitleBar"
+        parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+</resources>
