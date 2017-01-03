@@ -22,3 +22,8 @@
 
 [EventBus的基本使用和源码解析](http://shenhuniurou.com/2016/11/06/android-event-bus-source-parsing)
 
+
+--------------------------------------------------
+
+[Android捕获崩溃异常](http://shenhuniurou.com/2017/01/03/android-crash-handler)
+
