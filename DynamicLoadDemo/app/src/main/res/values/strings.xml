@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">动态加载apk</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="chat_fragment">MainChatPageFragment</string>
+    <string name="square_fragment">MainSquarePageFragment</string>
+    <string name="discover_fragment">MainDiscoverPageFragment</string>
+    <string name="mine_fragment">MainMinePageFragment</string>
+
+    <string name="main_home">首页</string>
+    <string name="main_chat">聊天</string>
+    <string name="main_square">广场</string>
+    <string name="main_discover">发现</string>
+    <string name="main_mine">我的</string>
+</resources>
