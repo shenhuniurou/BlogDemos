@@ -1,52 +1,52 @@
-## Android��������쳣
-[���͵�ַ](http://shenhuniurou.com/2017/01/03/android-crash-handler)
+## Android捕获崩溃异常
+[博客地址](http://shenhuniurou.com/2017/01/03/android-crash-handler)
 
-��������д�Ĵ�����������һЩbug���Լ����ڲ��Ի����������������쵼�³��ֵ�һЩ�쳣���ڲ��Թ�����û�з��֣�����app����֮���żȻ���ֵ�һЩbug��������app��ʹ�ù����г���ANR�����Ǹ����˵��۵�����app���������ֺ����ȣ���֮��app�����쳣ʱ���û����鲻�Ѻã����ǿ�������Ҫȥ������Щ�쳣���ռ���Щ�쳣��Ϣ�������ϴ��������������ڿ�����Աȥ�����Щ���⣬ͬʱ�����ǻ���Ҫ���û�һ���ѺõĽ������顣
+由于我们写的代码难免会出现一些bug，以及由于测试环境和生产环境差异导致出现的一些异常，在测试过程中没有发现，而在app上线之后会偶然出现的一些bug，以至于app在使用过程中出现ANR，这是个令人蛋疼的现象，app卡死、出现黑屏等，总之当app出现异常时的用户体验不友好，我们开发者需要去捕获这些异常，收集这些异常信息，并且上传到服务器，利于开发人员去解决这些问题，同时，我们还需要给用户一个友好的交互体验。
 
-��Ҳ���������ಶ������쳣����������������඼ǧƪһ�ɣ�ֻ˵����ô�����쳣�������쳣����û�жԲ����쳣��Ľ��潻�������ܺõĴ�����ϵͳ����ANRʱ���ȿ�һ��ʱ�䣨���ʱ�仹�е㳤��Ȼ�󵯳�һ��ϵͳĬ�ϵĶԻ��򣬵�����������Ҫ���ǵ������쳣���ʱ�����������Ի��򣬲��ҶԻ��������Զ�����档
+我也查找了许多捕获崩溃异常的文章来看，但大多都千篇一律，只说了怎么捕获异常，处理异常，并没有对捕获异常后的界面交互做出很好的处理，系统出现ANR时会先卡一段时间（这个时间还有点长）然后弹出一个系统默认的对话框，但是我现在需要的是当出现异常情况时，立马弹出对话框，并且对话框我想自定义界面。
 
-����ʵ�ֵ�Ч����ͼ��
+最终实现的效果如图：
 
-<img src="http://upload-images.jianshu.io/upload_images/1159224-cdf0b4169183ecaf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" width="40%"  alt="����Ч��ͼ" align="center" />
+<img src="http://upload-images.jianshu.io/upload_images/1159224-cdf0b4169183ecaf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" width="40%"  alt="最终效果图" align="center" />
 
-������Ҫ�Զ���`Application`��������`AndroidManifest.xml`�н�������
+首先需要自定义`Application`，并且在`AndroidManifest.xml`中进行配置
 ![AndroidManifest.xml.png](http://upload-images.jianshu.io/upload_images/1159224-ae3de39787e5a75d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-����Ҫ�Զ���һ��Ӧ���쳣������`AppUncaughtExceptionHandler`���������ʵ��`Thread.UncaughtExceptionHandler`�ӿڣ����⻹��Ҫ��д`uncaughtException`������ȥ�������Լ��ķ�ʽ�������쳣
+还需要自定义一个应用异常捕获类`AppUncaughtExceptionHandler`，它必须得实现`Thread.UncaughtExceptionHandler`接口，另外还需要重写`uncaughtException`方法，去按我们自己的方式来处理异常
 
-��`Application`������ֻ��Ҫ��ʼ���Զ�����쳣�����༴�ɣ�
+在`Application`中我们只需要初始化自定义的异常捕获类即可：
 
 ```java
 @Override public void onCreate() {
 	super.onCreate();
 	mInstance = this;
-	// ��ʼ���ļ�Ŀ¼
+	// 初始化文件目录
 	SdcardConfig.getInstance().initSdcard();
-	// ��׽�쳣
+	// 捕捉异常
 	AppUncaughtExceptionHandler crashHandler = AppUncaughtExceptionHandler.getInstance();
 	crashHandler.init(getApplicationContext());
 }
 ```
 
-> �����ļ�Ŀ¼���쳣��Ϣ������sd���е�Ŀ¼����������������app��ȫ�ֲ����쳣�����������Զ���Ĳ������ǵ�����
+> 其中文件目录是异常信息保存在sd卡中的目录，还有我们是整个app中全局捕获异常，所以我们自定义的捕获类是单例。
 
 ```java
 /**
- * ��ʼ��������
+ * 初始化捕获类
  *
  * @param context
  */
 public void init(Context context) {
 	applicationContext = context.getApplicationContext();
 	crashing = false;
-	//��ȡϵͳĬ�ϵ�UncaughtException������
+	//获取系统默认的UncaughtException处理器
 	mDefaultHandler = Thread.getDefaultUncaughtExceptionHandler();
-	//���ø�CrashHandlerΪ�����Ĭ�ϴ�����
+	//设置该CrashHandler为程序的默认处理器
 	Thread.setDefaultUncaughtExceptionHandler(this);
 }
 ```
 
-������Ϲ��̺󣬽�����Ҫ��д`uncaughtException`������
+完成以上过程后，接着需要重写`uncaughtException`方法：
 
 ```java
 @Override
@@ -56,11 +56,11 @@ public void uncaughtException(Thread thread, Throwable ex) {
 	}
 	crashing = true;
 
-	// ��ӡ�쳣��Ϣ
+	// 打印异常信息
 	ex.printStackTrace();
-	// ����û�д����쳣 ����Ĭ���쳣������Ϊ�� �򽻸�ϵͳ����
+	// 我们没有处理异常 并且默认异常处理不为空 则交给系统处理
 	if (!handlelException(ex) && mDefaultHandler != null) {
-		// ϵͳ����
+		// 系统处理
 		mDefaultHandler.uncaughtException(thread, ex);
 	}
 	byebye();
@@ -72,7 +72,7 @@ private void byebye() {
 }
 ```
 
-��Ȼ�������Լ������쳣�����Ի���ִ��`handlelException(ex)`������
+既然是我们自己处理异常，所以会先执行`handlelException(ex)`方法：
 
 ```java
 private boolean handlelException(Throwable ex) {
@@ -80,12 +80,12 @@ private boolean handlelException(Throwable ex) {
 		return false;
 	}
 	try {
-		// �쳣��Ϣ
+		// 异常信息
 		String crashReport = getCrashReport(ex);
-		// TODO: �ϴ���־��������
-		// ���浽sd��
+		// TODO: 上传日志到服务器
+		// 保存到sd卡
 		saveExceptionToSdcard(crashReport);
-		// ��ʾ�Ի���
+		// 提示对话框
 		showPatchDialog();
 	} catch (Exception e) {
 		return false;
@@ -94,11 +94,11 @@ private boolean handlelException(Throwable ex) {
 }
 ```
 
-��ȡ���쳣��Ϣ����ϵͳ��Ϣ��app�汾��Ϣ���Լ��ֻ���������Ϣ�ȣ�
+获取的异常信息包括系统信息，app版本信息，以及手机制造商信息等：
 
 ```java
 /**
- * ��ȡ�쳣��Ϣ
+ * 获取异常信息
  * @param ex
  * @return
  */
@@ -107,19 +107,19 @@ private String getCrashReport(Throwable ex) {
 	PackageInfo pinfo = CrashApplication.getInstance().getLocalPackageInfo();
 	if (pinfo != null) {
 		if (ex != null) {
-			//app�汾��Ϣ
-			exceptionStr.append("App Version��" + pinfo.versionName);
+			//app版本信息
+			exceptionStr.append("App Version：" + pinfo.versionName);
 			exceptionStr.append("_" + pinfo.versionCode + "\n");
 
-			//�ֻ�ϵͳ��Ϣ
-			exceptionStr.append("OS Version��" + Build.VERSION.RELEASE);
+			//手机系统信息
+			exceptionStr.append("OS Version：" + Build.VERSION.RELEASE);
 			exceptionStr.append("_");
 			exceptionStr.append(Build.VERSION.SDK_INT + "\n");
 
-			//�ֻ�������
+			//手机制造商
 			exceptionStr.append("Vendor: " + Build.MANUFACTURER+ "\n");
 
-			//�ֻ��ͺ�
+			//手机型号
 			exceptionStr.append("Model: " + Build.MODEL+ "\n");
 
 			String errorStr = ex.getLocalizedMessage();
@@ -146,16 +146,16 @@ private String getCrashReport(Throwable ex) {
 }
 ```
 
-���쳣��Ϣ���浽sd������Ҿ��ÿ�ѡ�ɣ������ϴ�������˻��Ǻ��б�Ҫ�ģ�
+将异常信息保存到sd卡这个我觉得可选吧，但是上传到服务端还是很有必要的：
 
 ```java
 /**
- * ������󱨸浽sd��
+ * 保存错误报告到sd卡
  * @param errorReason
  */
 private void saveExceptionToSdcard(String errorReason) {
 	try {
-		Log.e("CrashDemo", "AppUncaughtExceptionHandlerִ����һ��");
+		Log.e("CrashDemo", "AppUncaughtExceptionHandler执行了一次");
 		String time = mFormatter.format(new Date());
 		String fileName = "Crash-" + time + ".log";
 		if (SdcardConfig.getInstance().hasSDCard()) {
@@ -174,14 +174,14 @@ private void saveExceptionToSdcard(String errorReason) {
 }
 ```
 
-������sd���е��쳣�ļ���ʽ��
+保存在sd卡中的异常文件格式：
 
-![�쳣��Ϣ](http://upload-images.jianshu.io/upload_images/1159224-1b1efcc2ad2642cf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![异常信息](http://upload-images.jianshu.io/upload_images/1159224-1b1efcc2ad2642cf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-> �����ϴ������������ͱȽ�����ˣ����Խ������ļ��ϴ��������ϴ��쳣��Ϣ���ַ��������Ժͺ�˿�����Ա��ϡ�
+> 至于上传到服务器，就比较灵活了，可以将整个文件上传，或者上传异常信息的字符串，可以和后端开发人员配合。
 
 
-��Ϊ�����쳣����Ҫ���Ϲرյ�app�������`byebye`�������ǽ�app��������ɱ�����������Ҫ��ʾ��ʾ�Ի�������Ҫ���µ�����ջ�д�`activity`��
+因为捕获异常后我要马上关闭掉app即上面的`byebye`方法，是将app整个进程杀死，如果接着要显示提示对话框，则需要在新的任务栈中打开`activity`：
 
 ```java
 public static Intent newIntent(Context context, String title, String ultimateMessage) {
@@ -196,7 +196,7 @@ public static Intent newIntent(Context context, String title, String ultimateMes
 }
 ```
 
-�Ի����и���������������ѡ��������̵�ʵ�֣�
+对话框中给出了重启操作的选项，重启过程的实现：
 
 ```java
 private void restart() {
@@ -207,5 +207,5 @@ private void restart() {
 }
 ```
 
-Դ�����ַ:[https://github.com/shenhuniurou/BlogDemos/tree/master/CrashDemo](https://github.com/shenhuniurou/BlogDemos/tree/master/CrashDemo)��ӭstar��
+源代码地址:[https://github.com/shenhuniurou/BlogDemos/tree/master/CrashDemo](https://github.com/shenhuniurou/BlogDemos/tree/master/CrashDemo)欢迎star。
 
