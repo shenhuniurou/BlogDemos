@@ -13,14 +13,14 @@
 ------------------------------------------------
 
 
-[Materail Design中全新的动画](http://shenhuniurou.com/2016/11/10/android-materail-animations)
+[Materail Design中全新的动画](https://www.jianshu.com/p/e4b3cff04579)
 
 
 
 --------------------------------------------------
 
 
-[EventBus的基本使用和源码解析](http://shenhuniurou.com/2016/11/06/android-event-bus-source-parsing)
+[EventBus的基本使用和源码解析](https://www.jianshu.com/p/85b0335315fd)
 
 
 
@@ -28,10 +28,10 @@
 
 
 
-[动态加载插件apk中的资源](http://shenhuniurou.com/2016/12/28/dynamic-load-apk)
+[动态加载插件apk中的资源](https://www.jianshu.com/p/c2532d69a08a)
 
 
 --------------------------------------------------
 
-[Android捕获崩溃异常](http://shenhuniurou.com/2017/01/03/android-crash-handler)
+[Android捕获崩溃异常](https://www.jianshu.com/p/fb28a5322d8a)
 
